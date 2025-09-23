@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JustC - Портфолио</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Orbitron',sans-serif; background:#0a0a0f; color:#e0e0e0; scroll-behavior:smooth; line-height:1.6; }
+a { text-decoration:none; color:inherit; }
+h1,h2,h3 { color:#00fffc; text-shadow:0 0 5px #00fffc,0 0 10px #00fffc; letter-spacing:1px; }
+h1 { font-size:3em; margin-bottom:20px; }
+h2 { font-size:2.2em; margin-bottom:15px; }
+h3 { font-size:1.8em; margin-top:25px; }
+
+header { position:fixed; width:100%; top:0; background:rgba(10,10,15,0.95); backdrop-filter:blur(8px); z-index:1000; padding:15px 25px; display:flex; justify-content:space-between; align-items:center; }
+header h1 { font-size:2em; }
+nav a { margin-left:15px; font-weight:700; transition:0.3s; }
+nav a:hover { color:#00fffc; }
+
+section { padding:150px 20px 80px 20px; max-width:1200px; margin:auto; display:flex; flex-direction:column; gap:60px; }
+.section-block { background:rgba(0,15,30,0.85); border-radius:15px; padding:40px; box-shadow:0 0 20px rgba(0,255,252,0.2); transition: transform 0.3s; }
+.section-block:hover { transform:translateY(-5px); box-shadow:0 0 40px rgba(0,255,252,0.4); }
+
+p { font-size:1.1em; color:#cfd8dc; margin-bottom:15px; }
+strong { color:#00fffc; }
+
+.buttons a { display:inline-block; background:linear-gradient(135deg,#00fffc,#00aaff); color:#0a0a0f; padding:12px 25px; margin:10px 10px 0 0; border-radius:10px; font-weight:700; box-shadow:0 5px 20px rgba(0,255,252,0.3); transition:0.3s; }
+.buttons a:hover { transform: translateY(-3px) scale(1.05); box-shadow:0 10px 30px rgba(0,255,252,0.5); }
+
+img { max-width:100%; border-radius:15px; margin-top:20px; }
+
+.floating-tg { position:fixed; bottom:30px; right:30px; background:#00fffc; color:#0a0a0f; padding:15px 18px; border-radius:50%; font-size:1.5em; box-shadow:0 5px 20px rgba(0,255,252,0.5); z-index:1000; transition:0.3s; }
+.floating-tg:hover { transform:scale(1.1); box-shadow:0 10px 30px rgba(0,255,252,0.7); }
+
+footer { text-align:center; padding:30px 20px; color:#66fcf1; background:#0a0a0f; margin-top:50px; }
+
+@media(max-width:768px) {
+  header { flex-direction:column; text-align:center; }
+  nav a { margin:10px 5px; display:inline-block; }
+  h1 { font-size:2.2em; }
+  h2 { font-size:1.8em; }
+  h3 { font-size:1.5em; }
+  .buttons a { width:100%; text-align:center; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>JustC</h1>
+  <nav>
+    <a href="#about">Обо мне</a>
+    <a href="#ide">IDE</a>
+    <a href="#veil">Veil</a>
+    <a href="#iot">IoT проекты</a>
+    <a href="#blog">Блог</a>
+    <a href="#contact">Контакты</a>
+    <a href="https://github.com/JustCcode" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+    <a href="https://t.me/justclive" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
+  </nav>
+</header>
+
+<section>
+  <div class="section-block" id="about">
+    <h2>Привет! Я JustC</h2>
+    <p>Я разработчик на <strong>C</strong>, увлекаюсь <strong>IoT</strong>, микроконтроллерами и железками. Создаю инструменты для разработчиков и делюсь опытом в Telegram и на GitHub.</p>
+    <p>В моем канале <a href="https://t.me/justclive" target="_blank">t.me/justclive</a> вы найдете уроки по C, проекты с железками и советы по программированию.</p>
+  </div>
+
+  <div class="section-block" id="ide">
+    <h2><i class="fas fa-code"></i> JustC IDE</h2>
+    <p>Современный редактор кода для C с подсветкой синтаксиса, вкладками, боковой панелью и неоновой темой. Beta-версия доступна для Windows и Linux.</p>
+    <img src="ide.jpg" alt="Скриншот JustC IDE">
+    <div class="buttons">
+      <a href="https://github.com/JustCcode/JustC-IDE/releases/tag/v0.1" target="_blank"><i class="fab fa-windows"></i> Скачать для Windows</a>
+      <a href="https://github.com/JustCcode/JustC-IDE/releases/tag/%23JUSTCIDE" target="_blank"><i class="fab fa-linux"></i> Скачать для Linux</a>
+    </div>
+  </div>
+
+  <div class="section-block" id="veil">
+    <h2><i class="fas fa-user-secret"></i> Veil Messenger (в разработке)</h2>
+    <p>Создаю <strong>Veil</strong> — анонимный, кроссплатформенный мессенджер с сильным шифрованием и повышенной безопасностью. Пока проект в разработке.</p>
+    <p>Подробнее о проекте, обновлениях и бета-тесте можно узнать в моем Telegram канале <a href="https://t.me/justclive" target="_blank">t.me/justclive</a>.</p>
+  </div>
+
+  <div class="section-block" id="iot">
+    <h2><i class="fas fa-microchip"></i> IoT проекты</h2>
+    <p>Проекты с микроконтроллерами и сенсорами. Использую язык C для программирования железок.</p>
+    <p>Примеры: автоматизация дома, сенсорные системы, LED-панели и другие устройства.</p>
+  </div>
+
+  <div class="section-block" id="blog">
+    <h2><i class="fas fa-book"></i> Блог и обучение</h2>
+    <p>В моем Telegram канале <a href="https://t.me/justclive" target="_blank">t.me/justclive</a> я публикую уроки по C, проекты по IoT и советы для программистов.</p>
+    <p>Также анонсы новых версий моей IDE и других инструментов.</p>
+  </div>
+
+  <div class="section-block" id="contact">
+    <h2><i class="fas fa-envelope"></i> Контакты</h2>
+    <p>Telegram: <a href="https://t.me/justclive" target="_blank">t.me/justclive</a></p>
+    <p>GitHub: <a href="https://github.com/JustCcode" target="_blank">github.com/JustCcode</a></p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 JustC. Все права защищены. | <a href="https://t.me/justclive">Telegram</a> | <a href="https://github.com/JustCcode" target="_blank">GitHub</a></p>
+</footer>
+
+<a href="https://t.me/justclive" target="_blank" class="floating-tg"><i class="fab fa-telegram"></i></a>
+
+</body>
+</html>
