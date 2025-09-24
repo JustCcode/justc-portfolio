@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JustC — Все проекты</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --accent1:#1ef0c0;
+  --accent2:#8454ff;
+  --text:#c0c0c0;
+  --bg:#010103;
+  --glass:rgba(255,255,255,0.02);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  scroll-behavior:smooth;
+}
+
+/* Header */
+header{
+  position:fixed;
+  width:100%;
+  top:0;
+  backdrop-filter:blur(14px);
+  background:rgba(1,1,3,0.7);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 40px;
+  z-index:10;
+}
+.logo{
+  font-weight:700;
+  font-size:1.5rem;
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+nav{display:flex;gap:30px;}
+nav a{color:var(--text); text-decoration:none; font-weight:600; position:relative; transition:.3s;}
+nav a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--accent1);transition:.3s;}
+nav a:hover{color:var(--accent1);}
+nav a:hover::after{width:100%;}
+.menu-toggle{display:none;color:var(--accent1);font-size:1.8rem;cursor:pointer;}
+
+/* Hero */
+.hero{
+  min-height:20vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:100px 20px 40px 20px;
+}
+.hero h1{font-size:2.8rem; background:linear-gradient(90deg,var(--accent1),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:20px;}
+.hero p{max-width:700px;font-size:1.2rem;color:#a0a0a0;}
+
+/* Categories */
+.categories{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:15px;
+  margin-bottom:40px;
+}
+.categories button{
+  padding:10px 20px;
+  border:none;
+  border-radius:25px;
+  background:rgba(255,255,255,0.05);
+  color:var(--text);
+  cursor:pointer;
+  transition:.3s;
+  font-weight:600;
+}
+.categories button.active, .categories button:hover{
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
+  color:#010103;
+}
+
+/* Grid cards */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+  justify-content: center;
+  gap:30px;
+  max-width:1200px;
+  margin:0 auto 80px auto; /* отступ снизу для футера */
+}
+.card{
+  background: var(--glass);
+  backdrop-filter: blur(18px);
+  border-radius: 20px;
+  padding: 30px;
+  border:1px solid rgba(255,255,255,0.03);
+  box-shadow:0 8px 30px rgba(0,0,0,0.25);
+  transition: transform .4s, box-shadow .4s, border-color .4s, opacity .5s;
+  opacity:0;
+  transform:translateY(30px);
+  pointer-events:none;
+  max-width: 400px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.card.show{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 12px 40px rgba(30,240,192,0.5);
+  border-color:var(--accent1);
+}
+.card img {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.card h3{font-size:1.3rem;margin-bottom:12px;color:#fff;}
+.card p{color:#b0b0b0;}
+.card a{color:var(--accent1); text-decoration:none; font-weight:600;}
+
+/* C-песочница */
+#c-sandbox textarea{
+  width:100%;
+  height:150px;
+  border-radius:12px;
+  background:rgba(0,0,0,0.6);
+  border:none;
+  color:#fff;
+  padding:15px;
+  font-family:monospace;
+  resize:none;
+  margin-bottom:10px;
+}
+#c-sandbox button{
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  background:var(--accent1);
+  color:#010103;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+#c-sandbox button:hover{background:var(--accent2);}
+#c-output{
+  margin-top:10px;
+  padding:10px;
+  background:rgba(0,0,0,0.4);
+  border-radius:10px;
+  min-height:50px;
+  font-family:monospace;
+  color:#0ff;
+}
+
+/* IoT-симулятор */
+#iot-sim button{
+  padding:10px 15px;
+  border:none;
+  border-radius:8px;
+  margin:5px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+#iot-sim button.led-on{background:#1ef0c0; color:#010103;}
+#iot-sim button.led-off{background:#333; color:#fff;}
+#iot-sim .sensor{margin-top:10px;}
+
+/* Footer */
+footer{
+  text-align:center;
+  padding:30px 20px;
+  color:#66fcf1;
+  background:#010103;
+  position:relative; /* статичный футер */
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">JustC</div>
+  <nav>
+    <a href="index.html">Главная</a>
+    <a href="#projects">Проекты</a>
+  </nav>
+  <div class="menu-toggle">&#9776;</div>
+</header>
+
+<section class="hero">
+  <h1>Все проекты</h1>
+  <p>Выберите категорию, чтобы увидеть соответствующие проекты.</p>
+</section>
+
+<section id="projects">
+  <div class="categories">
+    <button class="active" data-cat="all">Все</button>
+    <button data-cat="c">C/C++</button>
+    <button data-cat="iot">IoT</button>
+    <button data-cat="telegram">Telegram боты</button>
+    <button data-cat="veil">Veil</button>
+    <button data-cat="sandbox">Мини-песочница</button>
+  </div>
+
+  <div class="grid">
+    <!-- C/C++ Projects -->
+    <div class="card show" data-category="c">
+      <img src="ide.jpg" alt="JustC IDE">
+      <h3>JustC IDE</h3>
+      <p>Редактор C с подсветкой синтаксиса, вкладками и неоновой темой. Windows/Linux.</p>
+      <a href="https://github.com/JustCcode/JustC-IDE/releases" target="_blank">GitHub →</a>
+    </div>
+
+    <!-- IoT Projects -->
+    <div class="card show" data-category="iot">
+      <h3>IoT проекты</h3>
+      <p>Сенсорные системы, LED-панели, автоматизация дома и другие устройства, программируемые на C.</p>
+    </div>
+
+    <!-- Telegram Bots -->
+    <div class="card show" data-category="telegram">
+      <h3>Анонимные вопросы — Telegram бот</h3>
+      <p>Бот для анонимных вопросов. Python + Telebot + sqlite3.</p>
+      <a href="https://t.me/anontgquenstionschat_bot" target="_blank">@anontgquenstionschat_bot →</a>
+    </div>
+
+    <div class="card show" data-category="telegram">
+      <h3>JustC Help — Telegram бот поддержки</h3>
+      <p>Бот помогает пользователям с вопросами по образовательным проектам, интерактивные подсказки.</p>
+      <a href="https://t.me/justchelper_bot" target="_blank">@justchelper_bot →</a>
+    </div>
+
+    <div class="card show" data-category="telegram">
+      <h3>Курсы по низкоуровневому программированию — Telegram бот</h3>
+      <p>Сейчас в разработке. Будет обучать основам низкоуровневого языка программирования через интерактивные уроки.</p>
+    </div>
+
+    <!-- Veil -->
+    <div class="card show" data-category="veil">
+      <h3>Veil Messenger</h3>
+      <p>Анонимный кроссплатформенный мессенджер с шифрованием. В разработке.</p>
+      <a href="https://t.me/justclive" target="_blank">Telegram Updates →</a>
+    </div>
+
+    <!-- Мини-песочница -->
+    <div class="card show" data-category="sandbox">
+      <h3>Мини-песочница C</h3>
+      <p>Напиши C-код и запусти прямо в браузере (эмуляция через JS).</p>
+      <div id="c-sandbox">
+        <textarea id="c-code">printf("Hello, JustC!");</textarea>
+        <button onclick="runC()">Выполнить</button>
+        <pre id="c-output"></pre>
+      </div>
+    </div>
+
+    <div class="card show" data-category="sandbox">
+      <h3>IoT-симулятор</h3>
+      <p>Управляй светодиодами и сенсорами прямо на сайте.</p>
+      <div id="iot-sim">
+        <button class="led-off" onclick="toggleLed(this)">LED 1</button>
+        <button class="led-off" onclick="toggleLed(this)">LED 2</button>
+        <div class="sensor">Температура: <span id="sensor-value">25</span>°C</div>
+        <button onclick="randomSensor()">Обновить сенсор</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+© 2025 JustC. Все права защищены.
+</footer>
+
+<script>
+// Меню моб
+document.querySelector('.menu-toggle').addEventListener('click',()=>{
+  document.querySelector('nav').classList.toggle('open');
+});
+
+// Категории с фильтром и анимацией
+const buttons = document.querySelectorAll('.categories button');
+const cards = document.querySelectorAll('.grid .card');
+
+buttons.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    buttons.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.getAttribute('data-cat');
+
+    cards.forEach(card=>{
+      if(cat==='all' || card.getAttribute('data-category')===cat){
+        card.style.display = 'block';
+        setTimeout(()=>card.classList.add('show'),50);
+      } else {
+        card.classList.remove('show');
+        setTimeout(()=>card.style.display='none',300);
+      }
+    });
+  });
+});
+
+// Появление при скролле
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('show');
+  });
+},{threshold:0.1});
+document.querySelectorAll('.card').forEach(c=>observer.observe(c));
+
+// ---- C-песочница ----
+function runC(){
+  const code=document.getElementById('c-code').value;
+  const output=document.getElementById('c-output');
+  let result=code.replace(/printf\s*\(\s*"([^"]*)"\s*\);?/g,"$1\n");
+  output.textContent=result;
+}
+
+// ---- IoT симулятор ----
+function toggleLed(btn){
+  if(btn.classList.contains('led-off')){
+    btn.classList.remove('led-off'); btn.classList.add('led-on');
+  } else {
+    btn.classList.remove('led-on'); btn.classList.add('led-off');
+  }
+}
+function randomSensor(){
+  document.getElementById('sensor-value').textContent=(20+Math.floor(Math.random()*10));
+}
+</script>
+
+</body>
+</html>
