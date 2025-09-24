@@ -3,113 +3,432 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JustC - Портфолио</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<title>JustC — Портфолио</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Orbitron',sans-serif; background:#0a0a0f; color:#e0e0e0; scroll-behavior:smooth; line-height:1.6; }
-a { text-decoration:none; color:inherit; }
-h1,h2,h3 { color:#00fffc; text-shadow:0 0 5px #00fffc,0 0 10px #00fffc; letter-spacing:1px; }
-h1 { font-size:3em; margin-bottom:20px; }
-h2 { font-size:2.2em; margin-bottom:15px; }
-h3 { font-size:1.8em; margin-top:25px; }
+:root{
+  --accent1:#1ef0c0;
+  --accent2:#8454ff;
+  --text:#c0c0c0;
+  --bg:#010103;
+  --glass:rgba(255,255,255,0.02);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  overflow-x:hidden;
+  scroll-behavior:smooth;
+  position:relative;
+}
 
-header { position:fixed; width:100%; top:0; background:rgba(10,10,15,0.95); backdrop-filter:blur(8px); z-index:1000; padding:15px 25px; display:flex; justify-content:space-between; align-items:center; }
-header h1 { font-size:2em; }
-nav a { margin-left:15px; font-weight:700; transition:0.3s; }
-nav a:hover { color:#00fffc; }
+/* ---------- Canvas PCB ---------- */
+#pcb-canvas{
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  z-index:-5;
+}
 
-section { padding:150px 20px 80px 20px; max-width:1200px; margin:auto; display:flex; flex-direction:column; gap:60px; }
-.section-block { background:rgba(0,15,30,0.85); border-radius:15px; padding:40px; box-shadow:0 0 20px rgba(0,255,252,0.2); transition: transform 0.3s; }
-.section-block:hover { transform:translateY(-5px); box-shadow:0 0 40px rgba(0,255,252,0.4); }
+/* ---------- Binary rain ---------- */
+.binary-rain{
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  pointer-events:none;
+  z-index:-4;
+  color:rgba(30,240,192,0.03);
+  font-family:monospace;
+  font-size:16px;
+  white-space:pre;
+  overflow:hidden;
+}
 
-p { font-size:1.1em; color:#cfd8dc; margin-bottom:15px; }
-strong { color:#00fffc; }
+/* ---------- Header ---------- */
+header{
+  position:fixed;
+  width:100%;
+  top:0;
+  backdrop-filter:blur(14px);
+  background:rgba(1,1,3,0.7);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 40px;
+  z-index:10;
+}
+.logo{
+  font-weight:700;
+  font-size:1.5rem;
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+nav{display:flex;gap:30px;}
+nav a{
+  color:var(--text);
+  text-decoration:none;
+  font-weight:600;
+  position:relative;
+  transition:color .3s;
+}
+nav a::after{
+  content:'';
+  position:absolute;
+  left:0;bottom:-4px;
+  width:0;height:2px;
+  background:var(--accent1);
+  transition:width .3s;
+}
+nav a:hover{color:var(--accent1);}
+nav a:hover::after{width:100%;}
+.menu-toggle{display:none;color:var(--accent1);font-size:1.8rem;cursor:pointer;}
 
-.buttons a { display:inline-block; background:linear-gradient(135deg,#00fffc,#00aaff); color:#0a0a0f; padding:12px 25px; margin:10px 10px 0 0; border-radius:10px; font-weight:700; box-shadow:0 5px 20px rgba(0,255,252,0.3); transition:0.3s; }
-.buttons a:hover { transform: translateY(-3px) scale(1.05); box-shadow:0 10px 30px rgba(0,255,252,0.5); }
+/* ---------- Hero ---------- */
+.hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:0 20px;
+}
+.hero h1{
+  font-size:3.2rem;
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:20px;
+  position:relative;
+  animation:fadeDown 1.2s ease-out;
+}
+.hero h1::after {
+  content:'▮';
+  margin-left:6px;
+  color:var(--accent1);
+  animation:blink 1s step-start infinite;
+}
+@keyframes blink { 50% { opacity:0; } }
+.hero p{
+  max-width:700px;
+  font-size:1.2rem;
+  color:#a0a0a0;
+  animation:fadeUp 1.8s ease-out;
+}
+.hero .buttons{
+  margin-top:40px;
+  animation:fadeUp 2s ease-out;
+}
+.hero .buttons a{
+  display:inline-block;
+  padding:14px 34px;
+  border-radius:40px;
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
+  color:#010103;
+  font-weight:700;
+  text-decoration:none;
+  transition:transform .25s, box-shadow .25s;
+}
+.hero .buttons a:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 25px var(--accent1),0 0 40px var(--accent2),0 0 60px var(--accent2);
+  animation:neonPulse 1s infinite alternate;
+}
+@keyframes neonPulse{
+  from{box-shadow:0 0 25px var(--accent1),0 0 40px var(--accent2);}
+  to{box-shadow:0 0 35px var(--accent1),0 0 50px var(--accent2);}
+}
 
-img { max-width:100%; border-radius:15px; margin-top:20px; }
+/* ---------- Sections ---------- */
+section{
+  max-width:1200px;
+  margin:100px auto;
+  padding:0 20px;
+}
+section h2{
+  text-align:center;
+  font-size:2.2rem;
+  margin-bottom:50px;
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:fadeDown 1.2s ease-out;
+}
 
-.floating-tg { position:fixed; bottom:30px; right:30px; background:#00fffc; color:#0a0a0f; padding:15px 18px; border-radius:50%; font-size:1.5em; box-shadow:0 5px 20px rgba(0,255,252,0.5); z-index:1000; transition:0.3s; }
-.floating-tg:hover { transform:scale(1.1); box-shadow:0 10px 30px rgba(0,255,252,0.7); }
+/* Glass cards grid */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:30px;
+}
+.card{
+  background:var(--glass);
+  backdrop-filter:blur(18px);
+  border-radius:20px;
+  padding:30px;
+  border:1px solid rgba(255,255,255,0.03);
+  box-shadow:0 8px 30px rgba(0,0,0,0.25);
+  transition:transform .4s, box-shadow .4s, border-color .4s;
+  animation:fadeUp 1s ease forwards;
+  opacity:0;
+}
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 12px 40px rgba(30,240,192,0.5);
+  border-color:var(--accent1);
+}
+.card img {
+  width:100%;
+  height:auto;
+  display:block;
+  border-radius:12px;
+  margin-bottom:15px;
+}
+.card h3{
+  font-size:1.3rem;
+  margin-bottom:12px;
+  color:#fff;
+}
+.card p{color:#b0b0b0;}
+.quote{
+  font-style:italic;
+  color:var(--accent2);
+  margin-top:10px;
+  font-size:1rem;
+  opacity:0.85;
+  animation:fadeUp 1s ease forwards;
+}
 
-footer { text-align:center; padding:30px 20px; color:#66fcf1; background:#0a0a0f; margin-top:50px; }
+/* ---------- Animations ---------- */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes fadeDown{
+  from{opacity:0;transform:translateY(-30px);}
+  to{opacity:1;transform:translateY(0);}
+}
 
-@media(max-width:768px) {
-  header { flex-direction:column; text-align:center; }
-  nav a { margin:10px 5px; display:inline-block; }
-  h1 { font-size:2.2em; }
-  h2 { font-size:1.8em; }
-  h3 { font-size:1.5em; }
-  .buttons a { width:100%; text-align:center; }
+/* ---------- Footer ---------- */
+footer{
+  text-align:center;
+  padding:50px 20px;
+  color:#888;
+  backdrop-filter:blur(10px);
+  background:rgba(0,0,0,0.2);
+  margin-top:100px;
+  animation:fadeUp 1.5s ease-out;
+}
+
+/* ---------- Responsive ---------- */
+@media(max-width:768px){
+  nav{display:none;flex-direction:column;gap:20px;}
+  nav.open{
+    display:flex;
+    position:absolute;
+    top:70px;
+    right:30px;
+    background:rgba(1,1,3,0.95);
+    padding:20px;
+    border-radius:12px;
+  }
+  .menu-toggle{display:block;}
+  .hero h1{font-size:2.5rem;}
 }
 </style>
 </head>
 <body>
 
+<canvas id="pcb-canvas"></canvas>
+<div class="binary-rain" id="binary"></div>
+
 <header>
-  <h1>JustC</h1>
+  <div class="logo">JustC</div>
   <nav>
     <a href="#about">Обо мне</a>
-    <a href="#ide">IDE</a>
-    <a href="#veil">Veil</a>
-    <a href="#iot">IoT проекты</a>
-    <a href="#blog">Блог</a>
+    <a href="#skills">Навыки</a>
+    <a href="#whatido">Что я делаю</a>
+    <a href="#projects">Проекты</a>
     <a href="#contact">Контакты</a>
-    <a href="https://github.com/JustCcode" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-    <a href="https://t.me/justclive" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
   </nav>
+  <div class="menu-toggle">&#9776;</div>
 </header>
 
-<section>
-  <div class="section-block" id="about">
-    <h2>Привет! Я JustC</h2>
-    <p>Я разработчик на <strong>C</strong>, увлекаюсь <strong>IoT</strong>, микроконтроллерами и железками. Создаю инструменты для разработчиков и делюсь опытом в Telegram и на GitHub.</p>
-    <p>В моем канале <a href="https://t.me/justclive" target="_blank">t.me/justclive</a> вы найдете уроки по C, проекты с железками и советы по программированию.</p>
-  </div>
-
-  <div class="section-block" id="ide">
-    <h2><i class="fas fa-code"></i> JustC IDE</h2>
-    <p>Современный редактор кода для C с подсветкой синтаксиса, вкладками, боковой панелью и неоновой темой. Beta-версия доступна для Windows и Linux.</p>
-    <img src="ide.jpg" alt="Скриншот JustC IDE">
-    <div class="buttons">
-      <a href="https://github.com/JustCcode/JustC-IDE/releases/tag/v0.1" target="_blank"><i class="fab fa-windows"></i> Скачать для Windows</a>
-      <a href="https://github.com/JustCcode/JustC-IDE/releases/tag/%23JUSTCIDE" target="_blank"><i class="fab fa-linux"></i> Скачать для Linux</a>
-    </div>
-  </div>
-
-  <div class="section-block" id="veil">
-    <h2><i class="fas fa-user-secret"></i> Veil Messenger (в разработке)</h2>
-    <p>Создаю <strong>Veil</strong> — анонимный, кроссплатформенный мессенджер с сильным шифрованием и повышенной безопасностью. Пока проект в разработке.</p>
-    <p>Подробнее о проекте, обновлениях и бета-тесте можно узнать в моем Telegram канале <a href="https://t.me/justclive" target="_blank">t.me/justclive</a>.</p>
-  </div>
-
-  <div class="section-block" id="iot">
-    <h2><i class="fas fa-microchip"></i> IoT проекты</h2>
-    <p>Проекты с микроконтроллерами и сенсорами. Использую язык C для программирования железок.</p>
-    <p>Примеры: автоматизация дома, сенсорные системы, LED-панели и другие устройства.</p>
-  </div>
-
-  <div class="section-block" id="blog">
-    <h2><i class="fas fa-book"></i> Блог и обучение</h2>
-    <p>В моем Telegram канале <a href="https://t.me/justclive" target="_blank">t.me/justclive</a> я публикую уроки по C, проекты по IoT и советы для программистов.</p>
-    <p>Также анонсы новых версий моей IDE и других инструментов.</p>
-  </div>
-
-  <div class="section-block" id="contact">
-    <h2><i class="fas fa-envelope"></i> Контакты</h2>
-    <p>Telegram: <a href="https://t.me/justclive" target="_blank">t.me/justclive</a></p>
-    <p>GitHub: <a href="https://github.com/JustCcode" target="_blank">github.com/JustCcode</a></p>
+<section class="hero">
+  <h1>Привет, я JustC</h1>
+  <p>Разработчик на C, преподаватель и экспериментатор. Люблю работать близко к железу, создавать инструменты для сообщества и вдохновлять других на изучение низкоуровневого программирования.</p>
+  <div class="buttons">
+    <a href="#projects">Посмотреть проекты</a>
   </div>
 </section>
 
+<section id="about">
+<h2>Обо мне</h2>
+<div class="grid">
+  <div class="card"><p>Системный программист, фанат микроконтроллеров и сетевого взаимодействия.</p><p class="quote">«Код на C — это диалог напрямую с железом»</p></div>
+  <div class="card"><p>Обучаю программированию: провожу воркшопы, делюсь уроками в Telegram и GitHub.</p><p class="quote">«Учить других — лучший способ самому стать мастером»</p></div>
+  <div class="card"><p>Люблю экспериментировать: от сетевых протоколов до LED-инсталляций.</p><p class="quote">«Эксперименты рождают идеи, идеи — новые проекты»</p></div>
+</div>
+</section>
+
+<section id="skills">
+<h2>Навыки</h2>
+<div class="grid">
+  <div class="card">
+    <h3>Hard Skills</h3>
+    <p>• C / C++ (embedded, POSIX)<br>• Socket-программирование, TCP/UDP<br>• RTOS, STM32, ESP32<br>• Linux, Makefile, Git<br>• Протоколы IoT: MQTT, CoAP</p>
+  </div>
+  <div class="card">
+    <h3>Soft Skills</h3>
+    <p>• Креативность и системное мышление<br>• Менторство<br>• Умение объяснять сложное просто<br>• Работа в распределённых командах</p>
+  </div>
+</div>
+</section>
+
+<section id="whatido">
+<h2>Что я делаю</h2>
+<div class="grid">
+  <div class="card"><p>Создаю проекты не ради заработка, а для общества. Хочу внести свой вклад в сообщество разработчиков, поделиться знаниями и инструментами, которые помогут другим.</p><p class="quote">«Моя цель — сделать технологии доступными и полезными для всех»</p></div>
+  <div class="card"><p>Экспериментирую с железом, сетями и IoT. Проекты разнообразны: от умных устройств до образовательных инструментов.</p></div>
+</div>
+</section>
+
+<section id="projects">
+<h2>Проекты</h2>
+<div class="grid">
+  <div class="card"><img src="ide.jpg" alt="JustC IDE"><h3>JustC IDE</h3><p>Редактор кода для C с подсветкой синтаксиса и поддержкой Windows/Linux.</p><p><a href="https://github.com/JustCcode/JustC-IDE/releases" target="_blank" style="color:var(--accent1)">GitHub →</a></p></div>
+  <div class="card"><h3>Veil Messenger</h3><p>Анонимный кроссплатформенный мессенджер с сильным шифрованием (в разработке).</p></div>
+  <div class="card"><h3>IoT проекты</h3><p>Сенсорные системы, LED-панели, автоматизация дома и другие железные эксперименты.</p></div>
+</div>
+<div style="text-align:center;margin-top:30px;">
+  <a href="projects.html" style="padding:14px 34px;border-radius:40px;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#010103;font-weight:700;text-decoration:none;transition:transform .25s, box-shadow .25s;display:inline-block;" 
+     onmouseover="this.style.transform='scale(1.08)';this.style.boxShadow='0 0 25px var(--accent1),0 0 40px var(--accent2)';"
+     onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none';">
+    Показать все проекты
+  </a>
+</div>
+</section>
+
+<section id="contact">
+<h2>Контакты</h2>
+<div class="grid">
+  <div class="card"><p>Telegram: <a href="https://t.me/justclive" target="_blank" style="color:var(--accent1)">@justclive</a></p><p>GitHub: <a href="https://github.com/JustCcode" target="_blank" style="color:var(--accent1)">github.com/JustCcode</a></p></div>
+</div>
+</section>
+
 <footer>
-  <p>© 2025 JustC. Все права защищены. | <a href="https://t.me/justclive">Telegram</a> | <a href="https://github.com/JustCcode" target="_blank">GitHub</a></p>
+  © 2025 JustC. Все права защищены.
 </footer>
 
-<a href="https://t.me/justclive" target="_blank" class="floating-tg"><i class="fab fa-telegram"></i></a>
+<!-- Динамические цитаты -->
+<div id="quotes"></div>
+
+<script>
+// Навигация
+document.querySelector('.menu-toggle').addEventListener('click',()=>{
+  document.querySelector('nav').classList.toggle('open');
+});
+
+// Binary rain
+const binary = document.getElementById('binary');
+let text='';
+for(let i=0;i<2200;i++){
+  text += Math.random()>0.5 ? '0' : '1';
+  if(i%60===0) text+='\n';
+}
+binary.textContent = text;
+
+// Fade-in cards
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.style.opacity=1;
+  });
+},{threshold:0.1});
+document.querySelectorAll('.card').forEach(c=>observer.observe(c));
+
+// PCB Canvas animation with moving dots
+const canvas=document.getElementById('pcb-canvas');
+const ctx=canvas.getContext('2d');
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+const lines=[];
+for(let i=0;i<50;i++){
+  lines.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    length:30+Math.random()*50,
+    speed:0.5+Math.random(),
+    angle:Math.random()*Math.PI*2,
+    dots:[]
+  });
+  for(let j=0;j<5;j++){
+    lines[i].dots.push({pos:Math.random(), speed:0.01+Math.random()*0.02});
+  }
+}
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  lines.forEach(l=>{
+    const x2=l.x+Math.cos(l.angle)*l.length;
+    const y2=l.y+Math.sin(l.angle)*l.length;
+    ctx.strokeStyle='rgba(30,240,192,0.3)';
+    ctx.lineWidth=1.2;
+    ctx.beginPath();
+    ctx.moveTo(l.x,l.y);
+    ctx.lineTo(x2,y2);
+    ctx.stroke();
+    l.x+=Math.cos(l.angle)*l.speed;
+    l.y+=Math.sin(l.angle)*l.speed;
+    if(l.x>canvas.width||l.x<0) l.x=Math.random()*canvas.width;
+    if(l.y>canvas.height||l.y<0) l.y=Math.random()*canvas.height;
+    l.dots.forEach(d=>{
+      d.pos+=d.speed;
+      if(d.pos>1) d.pos=0;
+      const dx=l.x + (x2-l.x)*d.pos;
+      const dy=l.y + (y2-l.y)*d.pos;
+      ctx.fillStyle='rgba(30,240,192,0.8)';
+      ctx.beginPath();
+      ctx.arc(dx,dy,2,0,Math.PI*2);
+      ctx.fill();
+    });
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+
+// Динамические цитаты
+const quotesArr=[
+  "«Код на C — это диалог напрямую с железом» — Dennis Ritchie",
+  "«Свободное ПО — это вопрос свободы, а не цены» — Richard Stallman",
+  "«Учить других — лучший способ самому стать мастером» — Terry A. Davis",
+  "«Говорить дешево. Покажите код.» — Linus Torvalds",
+  "«Эксперименты рождают идеи, идеи — новые проекты»"
+];
+const quoteEl=document.getElementById('quotes');
+quoteEl.style.position='fixed';
+quoteEl.style.bottom='20px';
+quoteEl.style.left='50%';
+quoteEl.style.transform='translateX(-50%)';
+quoteEl.style.color='var(--accent1)';
+quoteEl.style.fontFamily='monospace';
+quoteEl.style.fontSize='1rem';
+quoteEl.style.opacity=0;
+quoteEl.style.pointerEvents='none';
+quoteEl.style.transition='opacity 1s';
+
+function showQuote(){
+  const q=quotesArr[Math.floor(Math.random()*quotesArr.length)];
+  quoteEl.textContent=q;
+  quoteEl.style.opacity=1;
+  setTimeout(()=>{quoteEl.style.opacity=0;},4000);
+}
+setInterval(showQuote,6000);
+</script>
 
 </body>
 </html>
